@@ -1,0 +1,16 @@
+andmebass -
+andmebass haldus -
+andmebassi  haldussüsteem ABHS - системя управления БД - СУБД (SQL Server /XAMPP /Oracle /MS Access)
+andme -
+tabel -
+vaerg = väli
+rida = kirje
+pärim (query) -
+loo -
+laadi alla - 
+laadi üles -
+rakendus - приложение
+varundamine(backup) - резирвное копирование
+taastamine - восстановление
+päringukeel - язык запроса
+relatsiooni andmebass - релиационная база данных 
