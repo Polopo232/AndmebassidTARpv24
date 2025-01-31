@@ -1,5 +1,5 @@
 --AB loomine
-Create database NikiforovBass;
+Create database NikiforovBaas;
 
 use NikiforovBass;
 CREATE TABLE opilane(
