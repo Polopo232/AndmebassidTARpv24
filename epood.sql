@@ -34,6 +34,19 @@ VALUES
 ('limonaad', 1, 1.60), 
 ('õlut', 1, 2.00)
 
+Create table customer (
+IdCustomer int primary key identity(1,1),
+Name varchar(25),
+Contact text)
+
+INSERT INTO customer (Name, Contact)
+VALUES
+('Donald', '111 111 111'),
+('Bill', '222 222 222'),
+('Ronald', '333 333 333'),
+('Peter', '444 444 444'),
+('Trufield', '555 555 555')
+
 create table Sale
 (idSale int primary key identity(1,1),
 idProduct int,
@@ -49,20 +62,6 @@ VALUES
 (3,3,1,'2025-01-25'),
 (4,4,2,'2025-01-13'),
 (5,5,10,'2025-01-01')
-
-
-Create table customer (
-IdCustomer int primary key identity(1,1),
-Name varchar(25),
-Contact text)
-
-INSERT INTO customer (Name, Contact)
-VALUES
-('Donald', '111 111 111'),
-('Bill', '222 222 222'),
-('Ronald', '333 333 333'),
-('Peter', '444 444 444'),
-('Trufield', '555 555 555')
 
 --kusutab kõik kirjed
 DELETE FROM Sale
