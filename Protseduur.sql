@@ -74,6 +74,24 @@ EXEC LinnOts A;
 -- LinnID linnnimi rahvaarv
 --   6     Almaty  321312
 
+
+--tabeli uuendamine - rahvaarv kasvab 10 % võrra
+UPDATE linn SET rahvaArv=rahvaArv*1.1
+WHERE linnID=7;
+SELECT * FROM linn;
+
+CREATE PROCEDURE RahvaArvUuendus
+@linnID int
+,@koef decimal(2,1)
+AS
+BEGIN
+SELECT * FROM linn;
+UPDATE linn SET rahvaArv=rahvaArv*@koef
+WHERE linnID=@linnID;
+SELECT * FROM linn;
+END;
+
+EXEC RahvaArvUuendus 8, 1.2;
 -------------------------------------------------------------------------------------------------------------------
 Kasutamine XAMPP / localhost
 CREATE DATABASE ProtseduurNikiforov;
@@ -90,19 +108,29 @@ VALUES
 ('Tallinn', 500000)
 ,('Tartu', 100000)
 ,('Narva', 60000)
-
+--lisaLinn
 BEGIN
     INSERT INTO linn(linnNimi, rahvaArv)
     VALUES (Lnimi, rArv);
     SELECT * FROM linn;
 END
-
+    
+--kustutaLinn
 BEGIN
 SELECT * FROM linn;
 DELETE FROM linn WHERE linnID=deleteID;
 SELECT * FROM linn;
 END
-
+    
+--LinnOts
 BEGIN
     SELECT * FROM linn WHERE linnNimi LIKE CONCAT(ots, '%');
+END
+
+--RahvaArvUuendus
+BEGIN
+SELECT * FROM linn;
+UPDATE linn SET rahvaArv=rahvaArv*koef
+WHERE linnID=id;
+SELECT * FROM linn;
 END
