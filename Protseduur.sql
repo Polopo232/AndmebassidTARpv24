@@ -97,3 +97,12 @@ BEGIN
     SELECT * FROM linn;
 END
 
+BEGIN
+SELECT * FROM linn;
+DELETE FROM linn WHERE linnID=deleteID;
+SELECT * FROM linn;
+END
+
+BEGIN
+    SELECT * FROM linn WHERE linnNimi LIKE CONCAT(ots, '%');
+END
