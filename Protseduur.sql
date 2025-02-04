@@ -91,3 +91,9 @@ VALUES
 ,('Tartu', 100000)
 ,('Narva', 60000)
 
+BEGIN
+    INSERT INTO linn(linnNimi, rahvaArv)
+    VALUES (Lnimi, rArv);
+    SELECT * FROM linn;
+END
+
