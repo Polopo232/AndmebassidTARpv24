@@ -1,3 +1,4 @@
 # AndmebassidTARpv24
 
-![pilt](https://github.com/user-attachments/assets/d9a5ff04-7ceb-4c72-9d35-ddbf2f7ad97d)
+![pilt](https://github.com/user-attachments/assets/aff15a1b-5cb9-4e26-9203-b43621bf66cf)
+
