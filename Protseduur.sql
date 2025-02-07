@@ -148,8 +148,27 @@ EXEC veeruLisaKustutaTabelis @valik='add', @tabelinimi='linn', @veerunimi='test3
 EXEC veeruLisaKustutaTabelis @valik='drop',@tabelinimi='linn',@veerunimi='test3'
 
 --protseduur tingimusega
+CREATE PROCEDURE rahvaHinna
+@piir int
 
-	
+AS
+BEGIN
+SELECT linnNimi, rahvaArv, IIF(rahvaArv<@piir, 'väike linn', 'suur linn') as Hinnang
+FROM linn;
+END;
+
+DROP PROCEDURE rahvaHinna;
+
+EXEC rahvaHinna 10000000;
+--Agregaat funktsioonid: SUM(), AVG(), MIN(), MAX, COUNT()
+
+CREATE PROCEDURE kokkuRahvaarv
+
+AS
+BEGIN
+SELECT SUM(rahvaArv) AS 'kokku rahvaArv', AVG(rahvaArv) AS 'keskmine rahvaArv', COUNT(*) AS 'linnade arv'
+FROM linn
+END
 -------------------------------------------------------------------------------------------------------------------
 Kasutamine XAMPP / localhost
 CREATE DATABASE ProtseduurNikiforov;
