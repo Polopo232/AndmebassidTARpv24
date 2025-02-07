@@ -201,7 +201,8 @@ END
     
 --LinnOts
 BEGIN
-    SELECT * FROM linn WHERE linnNimi LIKE CONCAT(ots, '%');
+    SELECT * FROM linn
+    WHERE LinnNimi LIKE CONCAT('ots', '%');
 END
 
 --RahvaArvUuendus
