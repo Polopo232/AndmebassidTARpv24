@@ -207,8 +207,8 @@ END
 
 --RahvaArvUuendus
 BEGIN
-SELECT * FROM linn;
-UPDATE linn SET rahvaArv=rahvaArv*koef
-WHERE linnID=id;
-SELECT * FROM linn;
+    SELECT * FROM filmid;
+    UPDATE filmid SET zant=Fzant
+    WHERE filmID=id;
+    SELECT * FROM filmid;
 END
