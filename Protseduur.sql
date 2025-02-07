@@ -17,6 +17,9 @@ VALUES
 ('Tallinn', 500000)
 ,('Tartu', 100000)
 ,('Narva', 60000)
+,('Rakvere', 10000)
+,('Riga', 150000)
+,('Moscow', 13000000)
 
 --Protseduuri loomine
 --Protseduur, mis lisab uus linn ja kohe näitab tabelis
@@ -92,6 +95,61 @@ SELECT * FROM linn;
 END;
 
 EXEC RahvaArvUuendus 8, 1.2;
+
+-- uue veeru lisamine
+ALTER TABLE linn ADD test INT;
+--veeru kustamine
+ALTER TABLE linn DROP COLUMN test;
+
+CREATE PROCEDURE veeruLisaKustuta
+@valik VARCHAR(20)
+,@veerunimi VARCHAR(20)
+,@tyyp VARCHAR(20) = NULL
+
+AS
+BEGIN
+DECLARE @sqltegevus AS VARCHAR(MAX)
+SET @sqltegevus=CASE
+WHEN @valik = 'add' THEN CONCAT('ALTER TABLE linn ADD ', @veerunimi, ' ', @tyyp)
+WHEN @valik = 'drop' THEN CONCAT('ALTER TABLE linn DROP COLUMN ', @veerunimi)
+END;
+PRINT @sqltegevus;
+BEGIN
+EXEC (@sqltegevus);
+END
+END;
+
+--kutse
+EXEC veeruLisaKustuta @valik='add', @veerunimi='test3', @tyyp='int';
+EXEC veeruLisaKustuta @valik='drop', @veerunimi='test3'
+
+SELECT * FROM linn
+
+CREATE PROCEDURE veeruLisaKustutaTabelis
+@valik VARCHAR(20)
+,@tabelinimi VARCHAR(20)
+,@veerunimi VARCHAR(20)
+,@tyyp VARCHAR(20) = NULL
+
+AS
+BEGIN
+DECLARE @sqltegevus AS VARCHAR(MAX)
+SET @sqltegevus=CASE
+WHEN @valik = 'add' THEN CONCAT('ALTER TABLE ',@tabelinimi,' ADD ', @veerunimi, ' ', @tyyp)
+WHEN @valik = 'drop' THEN CONCAT('ALTER TABLE ',@tabelinimi,' DROP COLUMN ', @veerunimi)
+END;
+PRINT @sqltegevus;
+BEGIN
+EXEC (@sqltegevus);
+END
+END;
+
+EXEC veeruLisaKustutaTabelis @valik='add', @tabelinimi='linn', @veerunimi='test3', @tyyp='int';
+EXEC veeruLisaKustutaTabelis @valik='drop',@tabelinimi='linn',@veerunimi='test3'
+
+--protseduur tingimusega
+
+	
 -------------------------------------------------------------------------------------------------------------------
 Kasutamine XAMPP / localhost
 CREATE DATABASE ProtseduurNikiforov;
