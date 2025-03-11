@@ -70,6 +70,5 @@ SELECT * FROM Teosed
 SELECT * FROM Teose_liik
 SELECT * FROM Autorid
 
-SELECT Autorid.Eesnimi, Teosed.Pealkiri FROM Autorid JOIN Autorlus ON Autorid.Autori_ID = Autorlus.Autori_ID JOIN Teosed ON Teosed.Teosed_ID = Autorlus.Teosed_ID
-WHERE Autorlus.Autori_ID = 1 AND Autorlus.Teosed_ID = 1;
+SELECT Autorid.Eesnimi, Autorid.Perekonnanimi, Teosed.Pealkiri FROM Autorid JOIN Autorlus ON Autorid.Autori_ID = Autorlus.Autori_ID JOIN Teosed ON Teose.Teosed_ID = Autorlus.Teosed_ID
 
