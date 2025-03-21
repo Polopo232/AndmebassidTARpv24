@@ -86,11 +86,11 @@ koostis_id INT PRIMARY KEY IDENTITY(1,1)
 
 INSERT INTO koostis (kogus, retsept_retsept_id,toiduaine_id,yhik_id)
 VALUES
-(10,1,1,10)
-,(20,2,2,9)
-,(30,3,3,8)
-,(40,4,4,7)
-,(50,5,5,6)
+(10,1,1,1)
+,(20,2,2,2)
+,(30,3,3,3)
+,(40,4,4,4)
+,(50,5,5,5)
 
 --tehtud
 CREATE TABLE tehtud(
