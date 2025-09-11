@@ -1,0 +1,56 @@
+  create database kordaNikiforov
+use kordaNikiforov
+ 
+--tabel toode ja toodekategooria on seotud oma vahel
+create table toodekategooria(
+toodekategooriaId int not null primary key identity (1,1),
+toodekategooria varchar(100) unique,
+kirjeldus text);
+ 
+create table toode(
+toodeId int not null primary key identity (1,1),
+toodenimetus varchar(100) unique,
+hind decimal(5,2),
+toodekategooriaId int,
+foreign key (toodekategooriaId) references toodekategooria(toodekategooriaId)
+);
+
+INSERT INTO toodekategooria(toodekategooria)
+VALUES
+('qwe')
+
+INSERT INTO toode(toodenimetus, hind, toodekategooriaId)
+VALUES
+('hambapasta', 4, 5)
+
+SELECT * FROM toodekategooria
+SELECT * FROM toode
+
+SELECT t.toodenimetus, toodekategooria FROM toode t INNER JOIN toodekategooria tk ON t.toodekategooriaId = tk.toodekategooriaId
+
+SELECT toodekategooria, MAX(hind) FROM toode t INNER JOIN toodekategooria tk ON t.toodekategooriaId = tk.toodekategooriaId GROUP BY tk.toodekategooria
+
+SELECT toodekategooria, COUNT(toodenimetus) AS 'Kogus toode'
+FROM toodekategooria tk
+INNER JOIN toode t ON t.toodekategooriaId = tk.toodekategooriaId
+GROUP BY tk.toodekategooria
+ORDER BY [Kogus toode]
+
+SELECT toodekategooria, COUNT(toodenimetus) AS 'Kogus toode', AVG(hind) 'Keskmine hind'
+FROM toodekategooria tk
+INNER JOIN toode t ON t.toodekategooriaId = tk.toodekategooriaId
+GROUP BY tk.toodekategooriaId, tk.toodekategooria
+ORDER BY [Keskmine hind] DESC
+
+--Kuvada ainult need kategooriad, kus pole ühtegi toodet.
+SELECT tk.toodekategooria, t.toodenimetus
+FROM toodekategooria tk
+LEFT JOIN toode t ON t.toodekategooriaId = tk.toodekategooriaId
+WHERE t.toodekategooriaId IS NULL
+
+SELECT toodenimetus, hind FROM toode WHERE hind > (SELECT AVG(hind) FROM toode) 
+
+
+
+
+
