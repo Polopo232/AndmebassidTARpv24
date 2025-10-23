@@ -310,3 +310,8 @@ DROP TRIGGER Delete_Makse
 DROP TRIGGER Insert_Tellimus
 DROP TRIGGER Update_Tellimus
 DROP TRIGGER Deleted_Tellimus
+
+GRANT SELECT, INSERT, UPDATE ON Klient TO KohvikWaiter
+GRANT SELECT, INSERT, UPDATE ON Tellimus TO KohvikWaiter
+GRANT SELECT, INSERT, UPDATE ON Reservatsioon TO KohvikWaiter
+GRANT SELECT, INSERT, UPDATE ON KlientTulemus TO KohvikWaiter
