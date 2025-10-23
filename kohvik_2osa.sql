@@ -181,10 +181,14 @@ AFTER INSERT
 AS
 BEGIN
     INSERT INTO MakseLog (MakseID, USER_add, LogTime, Message)
-    SELECT MakseID, SUSER_NAME(), GETDATE(),
-	'Tellimus on makstud ID: ' + CAST(telliID as varchar) + ' , Summa: ' + CAST(summa as varchar) + ', Aeg: ' + CAST(maksaaeg as varchar)
+    SELECT 
+        MakseID, 
+        SUSER_NAME(), 
+        GETDATE(),
+        CONCAT('Tellimus on makstud ID: ', telliID, ', Summa: ', summa, ', Aeg: ', maksaaeg)
     FROM inserted;
 END;
+
 
 CREATE TRIGGER Update_Makse
 ON Makse
