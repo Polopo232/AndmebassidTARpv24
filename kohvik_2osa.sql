@@ -196,9 +196,15 @@ AFTER UPDATE
 AS
 BEGIN
     INSERT INTO MakseLog (MakseID, USER_add, LogTime, Message)
-    SELECT i.MakseID, SUSER_NAME(), GETDATE(),
-	'Muudetud ID: ' + CAST(d.telliID as varchar) + ' , Vana: ' + ' , Summa: ' + CAST(d.summa as varchar) + ', Aeg: ' + CAST(d.maksaaeg as varchar) +
-	' Uue: ' + ' , Summa: ' + CAST(i.summa as varchar) + ', Aeg: ' + CAST(i.maksaaeg as varchar)
+    SELECT 
+        i.MakseID, 
+        SUSER_NAME(), 
+        GETDATE(),
+        CONCAT(
+            'Muudetud ID: ', d.telliID, 
+            ' , Vana: , Summa: ', d.summa, ', Aeg: ', d.maksaaeg,
+            ' Uue: , Summa: ', i.summa, ', Aeg: ', i.maksaaeg
+        )
     FROM inserted i
     INNER JOIN deleted d ON i.MakseID = d.MakseID;
 END;
@@ -209,8 +215,15 @@ AFTER DELETE
 AS
 BEGIN
     INSERT INTO MakseLog (MakseID, USER_add, LogTime, Message)
-    SELECT MakseID, SUSER_NAME(), GETDATE(),
-	'Kasutatud ID: ' + CAST(telliID as varchar) + ' , Summa: ' + CAST(summa as varchar) + ', Aeg: ' + CAST(maksaaeg as varchar)
+    SELECT 
+        MakseID, 
+        SUSER_NAME(), 
+        GETDATE(),
+        CONCAT(
+            'Kasutatud ID: ', telliID, 
+            ' , Summa: ', summa, 
+            ', Aeg: ', maksaaeg
+        )
     FROM deleted;
 END;
 
@@ -247,7 +260,12 @@ BEGIN
         i.telliID, 
         SUSER_NAME(), 
         GETDATE(),
-        'Lisatud uus tellimus: ' + CAST(i.telliID AS varchar) + ', klient: ' + k.eesnimi + ', töötaja: ' + t.eesnimi + ', makse ID: ' + CAST(i.MakseID AS varchar)
+        CONCAT(
+            'Lisatud uus tellimus: ', i.telliID, 
+            ', klient: ', k.eesnimi, 
+            ', töötaja: ', t.eesnimi, 
+            ', makse ID: ', i.MakseID
+        )
     FROM inserted i
     INNER JOIN Tootaja t ON i.tootajaID = t.tootajaID
     INNER JOIN Klient k ON i.klientID = k.klientID;
@@ -263,12 +281,22 @@ BEGIN
         i.telliID, 
         SUSER_NAME(), 
         GETDATE(),
-        'Muudatused. Vana: ' + CAST(i.telliID AS varchar) + ', klient: ' + k.eesnimi + ', töötaja: ' + t.eesnimi + ', makse ID: ' + CAST(i.MakseID AS varchar) +
-		'Uue: ' +  CAST(i.telliID AS varchar) + ', klient: ' + k.eesnimi + ', töötaja: ' + t.eesnimi + ', makse ID: ' + CAST(i.MakseID AS varchar)
+        CONCAT(
+            'Muudatused. Vana: ', d.telliID, 
+            ', klient: ', kd.eesnimi, 
+            ', töötaja: ', td.eesnimi, 
+            ', makse ID: ', d.MakseID,
+            ' Uue: ', i.telliID, 
+            ', klient: ', ki.eesnimi, 
+            ', töötaja: ', ti.eesnimi, 
+            ', makse ID: ', i.MakseID
+        )
     FROM inserted i
     INNER JOIN deleted d ON i.telliID = d.telliID
-    INNER JOIN Tootaja t ON i.tootajaID = t.tootajaID
-    INNER JOIN Klient k ON i.klientID = k.klientID;
+    INNER JOIN Tootaja ti ON i.tootajaID = ti.tootajaID
+    INNER JOIN Klient ki ON i.klientID = ki.klientID
+    INNER JOIN Tootaja td ON d.tootajaID = td.tootajaID
+    INNER JOIN Klient kd ON d.klientID = kd.klientID;
 END;
 
 CREATE TRIGGER Deleted_Tellimus
@@ -281,7 +309,12 @@ BEGIN
         d.telliID, 
         SUSER_NAME(), 
         GETDATE(),
-        'Kasutatud ID: ' + CAST(d.telliID AS varchar) + ', klient: ' + k.eesnimi + ', töötaja: ' + t.eesnimi + ', makse ID: ' + CAST(d.MakseID AS varchar)
+        CONCAT(
+            'Kasutatud ID: ', d.telliID, 
+            ', klient: ', k.eesnimi, 
+            ', töötaja: ', t.eesnimi, 
+            ', makse ID: ', d.MakseID
+        )
     FROM deleted d
     INNER JOIN Tootaja t ON d.tootajaID = t.tootajaID
     INNER JOIN Klient k ON d.klientID = k.klientID;
